@@ -6,11 +6,16 @@ import org.openqa.selenium.WebDriver;
 public class HelperUser extends HelperBase{
 
     public HelperUser(WebDriver wd) {
+
         super(wd);
     }
-
+    public void openLoginRegistrationForm() {
+//        wd.findElement(By.xpath("//a[@href='/login']")).click();
+        click(By.xpath("//a[@href='/login']"));
+    }
     public void fillLoginRegistrationForm(String email, String password){
-        type(By.xpath("//input[1]"), email);
+//        type(By.xpath("//input[1]"), email);// не находит элемент //input[1]
+        type(By.xpath("//input[@name = 'email']"), email);
         type(By.xpath("//input[2]"), password);
     }
 
@@ -21,10 +26,7 @@ public class HelperUser extends HelperBase{
         click(By.xpath("//button[1]"));
     }
 
-    public void openLoginRegistrationForm() {
-//        wd.findElement(By.xpath("//a[@href='/login']")).click();
-        click(By.xpath("//a[@href='/login']"));
-    }
+
 
     public void logout(){
         click(By.xpath("//button[.='Sign Out']"));

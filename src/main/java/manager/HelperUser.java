@@ -1,13 +1,32 @@
 package manager;
 
 import models.User;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class HelperUser extends HelperBase{
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+public class HelperUser extends HelperBase{
     public HelperUser(WebDriver wd) {
         super(wd);
+    }
+    public boolean isAlertPresent() {
+        Alert alert = new WebDriverWait(wd,5)
+                .until(ExpectedConditions.alertIsPresent());
+        if (alert == null) return false;
+        else {
+            wd.switchTo().alert();
+            System.out.println(alert.getText());
+            alert.accept();
+            return true;
+        }
+    }
+    public boolean isErrorFormatMessage(){
+        Alert alert = new WebDriverWait(wd, 5)
+                .until(ExpectedConditions.alertIsPresent());
+        return alert.getText().contains("Wrong email or password");//!!!!!! getText - red
     }
     public void fillLoginForm(String email, String password){
 //        type(By.xpath("//input[1]"), email);// не находит элемент //input[1]
@@ -34,7 +53,6 @@ public class HelperUser extends HelperBase{
     public void submitLogin(){
         click(By.xpath("//button[1]"));
     }
-
     public void logout(){
         click(By.xpath("//button[.='Sign Out']"));
     }

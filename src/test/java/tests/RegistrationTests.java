@@ -20,9 +20,7 @@ public class RegistrationTests extends TestBase{
 //        wd.navigate().to("https://telranedu.web.app/home");
 ////        wait = new FluentWait<>(wd);
 //        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
 //    }
-
 
     @Test
     public void regPositiveTest(){
@@ -33,11 +31,11 @@ public class RegistrationTests extends TestBase{
                 .email("test"+i+"@mail.ru")
                 .password("Qwer1234$")
                 .build();
+        logger.info("regPositiveTest starts with:" + user.getEmail() + " & " + user.getPassword());
         app.getUser().openLoginRegistrationForm();
 //        app.getUser().fillRegistrationForm(email, password);
         app.getUser().fillRegistrationForm(user);
         app.getUser().submitRegistration();
-        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//a[text()='ADD']")));
     }
 
     @Test
@@ -46,9 +44,15 @@ public class RegistrationTests extends TestBase{
                 .email("testmail.ru")
                 .password("Qwer1234$")
                 .build();
+
         app.getUser().openLoginRegistrationForm();
         app.getUser().fillRegistrationForm(user);
         app.getUser().submitRegistration();
+        Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//a[text()='ADD']")));
+        //  Assert.assertTrue -> expected [true] but found [false]
+
+        Assert.assertTrue(app.getUser().isErrorFormatMessage());// method window Alert with text - confirmation
+        Assert.assertTrue(app.getUser().isAlertPresent());// method window Alert with text in console
     }
     @Test
     public void regNegativeWrongPassword(){
@@ -59,6 +63,9 @@ public class RegistrationTests extends TestBase{
         app.getUser().openLoginRegistrationForm();
         app.getUser().fillRegistrationForm(user);
         app.getUser().submitRegistration();
+
+        Assert.assertTrue(app.getUser().isErrorFormatMessage());// method window Alert with text - confirmation
+        Assert.assertTrue(app.getUser().isAlertPresent());// method window Alert with text in console
     }
     @AfterMethod
     public void tearDown() {

@@ -1,0 +1,12 @@
+10:01:28.374 INFO  manager.MyListener Stsrt searching element byBy.xpath: //button[.='Sign Out']
+10:01:38.509 INFO  manager.MyListener The element with locator byBy.xpath: //button[.='Sign Out']is found successfully
+10:01:38.522 INFO  manager.MyListener Stsrt searching element byBy.xpath: //a[@href='/login']
+10:01:38.572 INFO  manager.MyListener The element with locator byBy.xpath: //a[@href='/login']is found successfully
+10:01:38.874 INFO  manager.MyListener Stsrt searching element byBy.xpath: //input[@name = 'email']
+10:01:38.925 INFO  manager.MyListener The element with locator byBy.xpath: //input[@name = 'email']is found successfully
+10:01:39.228 INFO  manager.MyListener Stsrt searching element byBy.xpath: //input[2]
+10:01:39.271 INFO  manager.MyListener The element with locator byBy.xpath: //input[2]is found successfully
+10:01:39.566 INFO  manager.MyListener Stsrt searching element byBy.xpath: //button[2]
+10:01:39.602 INFO  manager.MyListener The element with locator byBy.xpath: //button[2]is found successfully
+10:01:39.693 INFO  manager.MyListener Stsrt searching element byBy.xpath: //a[text()='ADD']
+10:01:40.729 INFO  manager.MyListener The element with locator byBy.xpath: //a[text()='ADD']is found successfully

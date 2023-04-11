@@ -45,8 +45,7 @@ public class HelperBase {
         File screenshot = new File(link);
 
         try {
-            Files.copy(tmp, screenshot);// навести на красноту.copy() и выбрать Add...throws IOException
-            // или More -> Surround with try/catch!!!
+            Files.copy(tmp, screenshot);// навести на красноту.copy() и выбрать More -> Surround with try/catch!!!
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

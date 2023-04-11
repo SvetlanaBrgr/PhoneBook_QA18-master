@@ -1,17 +1,23 @@
 package tests;
 
+import manager.NGListener;
+import manager.ProviderData;
 import models.User;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+//@Listeners(NGListener.class)//подключение NGListener.class
 
-public class LoginTests extends TestBase{
+public class LoginTests extends TestBase {
+    @Test (dataProvider = "loginModelDto", dataProviderClass = ProviderData.class) //cw_18
 
-    @Test
-    public void loginPositiveTest(){
-        int i = (int)(System.currentTimeMillis() / 1000) % 3600;
+//    @Test(invocationCount = 2, groups = {"smoke"})
+
+    public void loginPositiveTest() {
+        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
 //        User user = new User().withEmail("test@mail.ru").withPassword("Qwer1234$");
         User user = User.builder()
-                .email("test"+i+"@mail.ru")
+                .email("test" + i + "@mail.ru")
                 .password("Qwer1234$")
                 .build();
         logger.info("regPositiveTest starts with:" + user.getEmail() + " & " + user.getPassword());
@@ -21,8 +27,9 @@ public class LoginTests extends TestBase{
 
         Assert.assertFalse(app.getUser().isLogged());
     }
-    @Test
-    public void loginNegativeTestWrongEmail(){
+
+    @Test(groups = {"smoke", "regress"})
+    public void loginNegativeTestWrongEmail() {
         User user = User.builder()
                 .email("test@mail.ru")
                 .password("Qwer1234$")
@@ -33,12 +40,13 @@ public class LoginTests extends TestBase{
         Assert.assertTrue(app.getUser().isErrorFormatMessage());// method window Alert with text - confirmation
         Assert.assertTrue(app.getUser().isAlertPresent());// method window Alert with text in console
     }
-    @Test
-    public void loginNegativeTestWrongPassword(){
-        int i = (int)(System.currentTimeMillis() / 1000) % 3600;
+
+    @Test(groups = {"regress"})
+    public void loginNegativeTestWrongPassword() {
+        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
         User user = User.builder()
-                .email("test"+i+"@mail.ru")
-                .password("Qwer1234$")
+                .email("test" + i + "@mail.ru")
+                .password("Qwer1234")//Qwer1234$
                 .build();
         app.getUser().openLoginRegistrationForm();
         app.getUser().fillLoginForm(user);
@@ -46,6 +54,9 @@ public class LoginTests extends TestBase{
         Assert.assertTrue(app.getUser().isErrorFormatMessage());// method window Alert with text - confirmation
         Assert.assertTrue(app.getUser().isAlertPresent());// method window Alert with text in console
     }
+
+}
+
 //    @Test
 //    public void loginPositiveTest(){
 //        String email = "asd@def.com";
@@ -68,4 +79,4 @@ public class LoginTests extends TestBase{
 //    public void tearDown() {
 ////        wd.quit();
 //    }
-}
+

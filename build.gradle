@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation 'org.testng:testng:7.4.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation 'org.jetbrains:annotations:23.0.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
@@ -24,4 +25,34 @@ dependencies {
 
 test {
     useTestNG()
+}
+
+task myTask(type:Test){ //regress -> myTask переименовали
+    useTestNG(){
+        suites'src/test/resources/testng.xml'
+    }
+    if(project.hasProperty('browser')){
+        systemProperty'browser',"${browser}"
+    }
+}
+task tests(type:Test) { // new task in cw_18
+    useTestNG() {
+
+        def groups = System.getProperty('groups')//переменная запуска методов групп
+        if (groups != null) {
+            includeGroups groups
+        }
+
+        def suite = System.getProperty('suite', '')//переменная запуска методов тестов
+        if (suite.equals('login')) {
+            suites 'src/test/resources/login.xml'
+        } else if (suite.equals('reg')) {
+            suites 'src/test/resources/reg.xml'
+        } else {
+            suites 'src/test/resources/testng.xml'
+        }
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+    }
 }

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class RegistrationTests extends TestBase{
 
-    @BeforeMethod
+    @BeforeMethod (alwaysRun = true)
     public void preCondition(){
         if(app.getUser().isLogged()){
             app.getUser().logout();
@@ -22,7 +22,7 @@ public class RegistrationTests extends TestBase{
 //        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 //    }
 
-    @Test
+    @Test (groups = {"smoke"})
     public void regPositiveTest(){
         int i = (int)(System.currentTimeMillis() / 1000) % 3600;
 //        String email = "name" + i + "@mail.com";
@@ -67,7 +67,7 @@ public class RegistrationTests extends TestBase{
         Assert.assertTrue(app.getUser().isErrorFormatMessage());// method window Alert with text - confirmation
         Assert.assertTrue(app.getUser().isAlertPresent());// method window Alert with text in console
     }
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public void tearDown() {
 //        wd.quit();
     }

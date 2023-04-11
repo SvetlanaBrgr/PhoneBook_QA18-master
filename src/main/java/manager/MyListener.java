@@ -35,7 +35,7 @@ public class MyListener extends AbstractWebDriverEventListener {
         logger.info(String.valueOf(throwable.fillInStackTrace()));//2-й вариант
 
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-        String link = "src/test/screenShots/screen - "+ i+ ".png";
+        String link = "src/test/screenShots/screen - "+ i+ ".png";//скопировали путь +добавили i и расширение файла для хранения
         new HelperBase(driver).takeScreenShot(link);//построить объект-new HelperBase(driver) и вызвать метод
         //когда случился onException - делай скриншот new HelperBase(driver).takeScreenShot(link)
         logger.info ("Here is the link to screenshot with error:" + link);

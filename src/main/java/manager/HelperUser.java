@@ -13,7 +13,7 @@ public class HelperUser extends HelperBase{
         super(wd);
     }
     public boolean isAlertPresent() {
-        Alert alert = new WebDriverWait(wd,5)
+        Alert alert = new WebDriverWait(wd,10)
                 .until(ExpectedConditions.alertIsPresent());
         if (alert == null) return false;
         else {
@@ -24,7 +24,7 @@ public class HelperUser extends HelperBase{
         }
     }
     public boolean isErrorFormatMessage(){
-        Alert alert = new WebDriverWait(wd, 5)
+        Alert alert = new WebDriverWait(wd, 10)
                 .until(ExpectedConditions.alertIsPresent());
         return alert.getText().contains("Wrong email or password");//!!!!!! getText - red
     }
@@ -35,8 +35,9 @@ public class HelperUser extends HelperBase{
     }
     public void fillLoginForm(User user){
 //        type(By.xpath("//input[@name = 'email']"), user.getEmail());
-        type(By.xpath("//input[@name = 'emai']"), user.getEmail());//!!- emai
-        type(By.xpath("//input[2]"), user.getPassword());
+        type(By.xpath("//input[@name = 'email']"), user.getEmail());//!!- emai
+//        type(By.xpath("//input[2]"), user.getPassword());//!!- empty input[]
+        type(By.xpath("//input[@name = 'password']"), user.getPassword());//!!- passw
     }
     public void fillRegistrationForm(User user){
 //        type(By.xpath("//input[1]"), email);// не находит элемент //input[1]

@@ -24,7 +24,7 @@ public class NGListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
-        logger.info("Fail of the test: " + result.getThrowable().fillInStackTrace());
+        logger.info("Fail of the test:" + result.getThrowable().fillInStackTrace());
     }
 
     @Override

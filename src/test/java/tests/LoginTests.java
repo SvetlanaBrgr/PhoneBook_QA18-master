@@ -1,26 +1,33 @@
 package tests;
 
-import manager.NGListener;
 import manager.ProviderData;
 import models.User;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
 //@Listeners(NGListener.class)//подключение NGListener.class
 
 public class LoginTests extends TestBase {
-    @Test (dataProvider = "loginModelDto", dataProviderClass = ProviderData.class) //cw_18
+    @Test //cw_19
 
-//    @Test(invocationCount = 2, groups = {"smoke"})
+    public void loginPositiveTestConfig(User user) {//cw_19
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().fillLoginForm(app.getEmail(), app.getPassword());
+        app.getUser().submitLogin();
 
-    public void loginPositiveTest() {
-        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
+
+    }
+    @Test (invocationCount = 3, groups = {"smoke"},
+            dataProvider = "loginModelDto", dataProviderClass = ProviderData.class) //cw_18 and cw_19
+
+    public void loginPositiveTest(User user) {
+//        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
 //        User user = new User().withEmail("test@mail.ru").withPassword("Qwer1234$");
-        User user = User.builder()
-                .email("test" + i + "@mail.ru")
-                .password("Qwer1234$")
-                .build();
-        logger.info("regPositiveTest starts with:" + user.getEmail() + " & " + user.getPassword());
+//        User user = User.builder()
+//                .email("test" + i + "@mail.ru")
+//                .password("Qwer1234$")
+//                .build();
+//        logger.info("regPositiveTest starts with:" + user.getEmail() + " & " + user.getPassword());
         app.getUser().openLoginRegistrationForm();
         app.getUser().fillLoginForm(user);
         app.getUser().submitLogin();
